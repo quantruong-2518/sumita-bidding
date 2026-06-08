@@ -2,11 +2,11 @@
 
 Bản dựng **FE thuần** cho website xúc tiến đầu tư Sumita.vn, sinh từ đặc tả `../08-spec/` (F0 screen inventory + F4 CCN template) và `../00-context/sitemap.xml`.
 
-> Trạng thái: **khung màn + data flow + schema** đã chạy được (build pass, 27 route, smoke-test 200). Theme **đen/trắng, không bo góc** là tạm — sẽ style lại sau khi chốt function.
+> Trạng thái: **khung màn + data flow + schema** đã chạy được (build pass, **≈27 URL render** từ 16 route pattern — gồm route động `[slug]`, smoke-test 200). Theme **brand đã apply** (navy `#16223a` + cam CTA `#f6861f`, bo góc 0.625rem, font Inter + Plus Jakarta Sans).
 
 ## Tech stack
 - **Next.js 16** (App Router, Turbopack) · **React 19** · **TypeScript**
-- **Tailwind v4** + **shadcn/ui** (radix-nova, base neutral → ép grayscale, `--radius:0`)
+- **Tailwind v4** + **shadcn/ui** (radix-nova; brand tokens oklch trong `globals.css`: `--primary` navy · `--cta` cam · `--radius:0.625rem`)
 - **TanStack React Query** (data fetching/cache) · **Zustand** (UI/client state) · **Zod** (schema)
 - **react-hook-form** + zodResolver (form chuyển đổi)
 
@@ -59,11 +59,11 @@ Mọi text dữ liệu là `LocalizedText { vi, en? }`. Render qua `useTx()` (cl
 ## Đang là placeholder / chờ chốt (⚠️CONFIRM)
 - **Ảnh/flycam**: dùng `Media` placeholder (DECISIONS #4 — khách cấp ảnh).
 - **Brand icons** (Facebook/LinkedIn): lucide bản này đã bỏ → tạm map icon thay thế.
-- **Footer 3 cột · CTA icon set · số CCN (3/4) · mục Tin tức (3/4)**: theo brief, đánh `⚠️CONFIRM` (xem `../08-spec/F0…` mục F).
+- **Footer (4 cột tạm — brief 3 / jfif 6) · CTA icon set · số CCN (3/4) · mục Tin tức (3/4) · danh mục tin = filter in-page**: theo brief, đánh `⚠️CONFIRM` (xem `../08-spec/F0…` mục F · `../DECISIONS.md` #14–15).
 - **Tài liệu tải**: link `/files/*.pdf` là placeholder (chưa có file thật).
 - **Submit lead**: `submitLead` chỉ log + giả lập (chưa nối CRM/email — DECISIONS #10).
 
 ## Việc tiếp (gợi ý)
-Style lại theo brand (navy/cam, bo, typography) → wire `next-intl` + bản EN → prefetch React Query (SSR có data) → nối API/CRM thật → thêm test.
+~~Style theo brand (navy/cam, bo, typography)~~ ✓ đã apply → wire `next-intl` + bản EN → prefetch React Query (SSR có data) → nối API/CRM thật → thêm test.
 
 _Doc nội bộ cho agent khi build thêm màn: `docs/FE-BUILD-CONTRACT.md`._

@@ -106,8 +106,8 @@ export function LeadForm({ variant, defaultCcnInterest, source, onSuccess, succe
 
   if (done) {
     return (
-      <div className={cn("flex flex-col items-center gap-3 border border-border p-8 text-center", className)}>
-        <span className="flex size-10 items-center justify-center border border-foreground">
+      <div className={cn("flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-8 text-center shadow-sm", className)}>
+        <span className="flex size-11 items-center justify-center rounded-full bg-cta/10 text-cta">
           <Icon name="Check" className="size-5" />
         </span>
         <div className="space-y-1">
@@ -197,7 +197,7 @@ export function LeadForm({ variant, defaultCcnInterest, source, onSuccess, succe
         )}
       />
 
-      <Button type="submit" size="lg" className="w-full" disabled={isPending}>
+      <Button type="submit" variant="cta" size="lg" className="w-full" disabled={isPending}>
         {isPending ? <Icon name="Loader2" className="size-4 animate-spin" /> : null}
         {SUBMIT_LABEL[variant]}
       </Button>

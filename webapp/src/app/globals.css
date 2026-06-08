@@ -9,7 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-heading);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -29,6 +29,9 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
+  --color-cta-hover: var(--cta-hover);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -48,75 +51,110 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* THEME TẠM THỜI: đen/trắng (grayscale), không bo góc (--radius:0), viền chuẩn.
-   Sẽ style lại sau khi xong function. Mọi token đều chroma=0 (không màu). */
+/* ───────────────────────────────────────────────────────────────────────────
+   SUMITA DESIGN SYSTEM — premium / quốc tế / industrial-park
+   - Brand primary  : Navy (#16223a)  → --primary  [ASSUMPTION: chờ khách chốt mã navy]
+   - Accent / CTA    : Orange (#f6861f) → --cta / --accent-foreground (DÙNG TIẾT CHẾ, chỉ CTA)
+   - Nền             : White + Light Gray; foreground/muted/border tông xanh-xám trung tính.
+   Cam KHÔNG phủ nền lớn — chỉ nút CTA, badge nhấn, ring focus của CTA.
+   ─────────────────────────────────────────────────────────────────────────── */
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.2169 0.026 260.98);
+
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.2169 0.026 260.98);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0 0 0);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.45 0 0);
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.37 0 0);
-  --border: oklch(0.9 0 0);
-  --input: oklch(0.9 0 0);
-  --ring: oklch(0 0 0);
-  --chart-1: oklch(0.2 0 0);
-  --chart-2: oklch(0.4 0 0);
-  --chart-3: oklch(0.55 0 0);
-  --chart-4: oklch(0.7 0 0);
-  --chart-5: oklch(0.82 0 0);
-  --radius: 0rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0 0 0);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0 0 0);
+  --popover-foreground: oklch(0.2169 0.026 260.98);
+
+  /* Brand navy */
+  --primary: oklch(0.2541 0.0487 263.18);
+  --primary-foreground: oklch(0.99 0.003 260);
+
+  /* Light gray surfaces */
+  --secondary: oklch(0.9632 0.0034 247.86);
+  --secondary-foreground: oklch(0.3217 0.0646 259.96);
+  --muted: oklch(0.9789 0.0029 264.54);
+  --muted-foreground: oklch(0.5076 0.0317 260.26);
+
+  /* Accent = subtle navy tint nền; foreground tông cam cho điểm nhấn nhẹ.
+     CTA cam thật nằm ở --cta (token riêng) để dùng tiết chế. */
+  --accent: oklch(0.9573 0.0074 260.73);
+  --accent-foreground: oklch(0.3217 0.0646 259.96);
+
+  /* CTA cam — accent chuyển đổi, dùng tiết chế */
+  --cta: oklch(0.7298 0.1701 55.73);
+  --cta-foreground: oklch(0.99 0.01 80);
+  --cta-hover: oklch(0.674 0.1628 55.15);
+
+  --destructive: oklch(0.5364 0.18 27.85);
+  --border: oklch(0.9241 0.0075 260.73);
+  --input: oklch(0.9241 0.0075 260.73);
+  --ring: oklch(0.3217 0.0646 259.96);
+
+  /* Charts: navy → cam scale (đẹp cho dashboard / số liệu) */
+  --chart-1: oklch(0.2541 0.0487 263.18);
+  --chart-2: oklch(0.3217 0.0646 259.96);
+  --chart-3: oklch(0.5076 0.0317 260.26);
+  --chart-4: oklch(0.7298 0.1701 55.73);
+  --chart-5: oklch(0.674 0.1628 55.15);
+
+  --radius: 0.625rem;
+
+  --sidebar: oklch(0.9789 0.0029 264.54);
+  --sidebar-foreground: oklch(0.2169 0.026 260.98);
+  --sidebar-primary: oklch(0.2541 0.0487 263.18);
+  --sidebar-primary-foreground: oklch(0.99 0.003 260);
+  --sidebar-accent: oklch(0.9573 0.0074 260.73);
+  --sidebar-accent-foreground: oklch(0.3217 0.0646 259.96);
+  --sidebar-border: oklch(0.9241 0.0075 260.73);
+  --sidebar-ring: oklch(0.3217 0.0646 259.96);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.1714 0.0223 264);
+  --foreground: oklch(0.97 0.004 260);
+
+  --card: oklch(0.2196 0.0421 263.19);
+  --card-foreground: oklch(0.97 0.004 260);
+  --popover: oklch(0.2196 0.0421 263.19);
+  --popover-foreground: oklch(0.97 0.004 260);
+
+  /* Trên nền tối, brand bề mặt là navy sáng hơn; nút "primary" để sáng dễ đọc */
+  --primary: oklch(0.97 0.004 260);
+  --primary-foreground: oklch(0.2196 0.0421 263.19);
+
+  --secondary: oklch(0.2854 0.0451 262);
+  --secondary-foreground: oklch(0.97 0.004 260);
+  --muted: oklch(0.2854 0.0451 262);
+  --muted-foreground: oklch(0.708 0.03 260);
+
+  --accent: oklch(0.2854 0.0451 262);
+  --accent-foreground: oklch(0.97 0.004 260);
+
+  --cta: oklch(0.7298 0.1701 55.73);
+  --cta-foreground: oklch(0.18 0.02 264);
+  --cta-hover: oklch(0.78 0.165 58);
+
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.55 0.06 260);
+
+  --chart-1: oklch(0.7 0.07 260);
+  --chart-2: oklch(0.55 0.06 260);
+  --chart-3: oklch(0.45 0.05 260);
+  --chart-4: oklch(0.7298 0.1701 55.73);
+  --chart-5: oklch(0.78 0.165 58);
+
+  --sidebar: oklch(0.2196 0.0421 263.19);
+  --sidebar-foreground: oklch(0.97 0.004 260);
+  --sidebar-primary: oklch(0.7298 0.1701 55.73);
+  --sidebar-primary-foreground: oklch(0.18 0.02 264);
+  --sidebar-accent: oklch(0.2854 0.0451 262);
+  --sidebar-accent-foreground: oklch(0.97 0.004 260);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.55 0.06 260);
 }
 
 @layer base {
@@ -125,8 +163,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   html {
     @apply font-sans;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading tracking-tight;
   }
 }

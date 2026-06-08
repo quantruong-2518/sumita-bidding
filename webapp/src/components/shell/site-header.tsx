@@ -26,8 +26,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <Container className="flex h-16 items-center gap-4">
-        <Link href="/" className="text-lg font-bold tracking-tight">
+        <Link href="/" className="flex items-baseline gap-px font-heading text-xl font-extrabold tracking-tight text-primary">
           SUMITA
+          <span className="text-cta">.</span>
         </Link>
 
         <nav className="ml-2 hidden items-center gap-0.5 lg:flex">
@@ -61,6 +62,7 @@ export function SiteHeader() {
           <LanguageSwitcher className="hidden sm:inline-flex" />
           <LeadButton
             size="sm"
+            variant="cta"
             className="hidden lg:inline-flex"
             lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "header" }}
           >
@@ -75,7 +77,9 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="left" className="w-80 p-0">
               <SheetHeader className="border-b border-border">
-                <SheetTitle>SUMITA</SheetTitle>
+                <SheetTitle className="font-heading text-lg font-extrabold tracking-tight text-primary">
+                  SUMITA<span className="text-cta">.</span>
+                </SheetTitle>
               </SheetHeader>
               <div className="space-y-1 overflow-y-auto p-4">
                 <SearchBar className="mb-3" onDone={() => setOpen(false)} />
@@ -104,6 +108,7 @@ export function SiteHeader() {
                   <LanguageSwitcher />
                 </div>
                 <LeadButton
+                  variant="cta"
                   className="mt-3 w-full"
                   lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "mobile-menu" }}
                   onClick={() => setOpen(false)}

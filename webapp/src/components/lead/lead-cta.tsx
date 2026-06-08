@@ -34,10 +34,10 @@ export function ConversionCtas({
 }) {
   return (
     <div className={cn("flex flex-wrap gap-3", className)}>
-      <LeadButton size={size} lead={{ variant: "brochure", title: "Nhận brochure", ccnInterest, source }}>
+      <LeadButton size={size} variant="cta" lead={{ variant: "brochure", title: "Nhận brochure", ccnInterest, source }}>
         Nhận brochure
       </LeadButton>
-      <LeadButton size={size} variant="outline" lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", ccnInterest, source }}>
+      <LeadButton size={size} lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", ccnInterest, source }}>
         Đặt lịch khảo sát
       </LeadButton>
       <LeadButton size={size} variant="ghost" lead={{ variant: "tu-van", title: "Tư vấn đầu tư", ccnInterest, source }}>

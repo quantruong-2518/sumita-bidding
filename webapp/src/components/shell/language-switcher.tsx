@@ -10,7 +10,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
   const setLocale = useUiStore((s) => s.setLocale);
 
   return (
-    <div className={cn("inline-flex border border-border", className)} role="group" aria-label="Ngôn ngữ">
+    <div className={cn("inline-flex overflow-hidden rounded-lg border border-border bg-card p-0.5", className)} role="group" aria-label="Ngôn ngữ">
       {LOCALES.map((l) => (
         <button
           key={l}
@@ -18,8 +18,8 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           onClick={() => setLocale(l)}
           aria-pressed={locale === l}
           className={cn(
-            "px-2 py-1 text-xs font-medium transition-colors",
-            locale === l ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
+            "rounded-md px-2 py-1 text-xs font-medium transition-colors",
+            locale === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
           )}
         >
           {LOCALE_LABEL[l]}

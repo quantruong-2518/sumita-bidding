@@ -17,6 +17,8 @@
 | 11 | Font CJK (JP/KR/CN) — bản quyền hay webfont | Chưa rõ | ☐ | | | UX đa ngữ N1.2, chi phí font, effort design. _Nguồn: `08-spec/N0` Q-N3._ |
 | 12 | Mức tuân thủ dữ liệu cá nhân | Tối thiểu NĐ 13/2023 (VN) | ☐ | | | Module X1/X2, NFR N9. _Nguồn: `08-spec/N0` Q-N4._ |
 | 13 | Hero: video flycam hay ảnh tĩnh | Chưa rõ — ai cấp, dung lượng? | ☐ | | | Performance N4.2 (rủi ro lớn nhất), asset, effort. _Nguồn: `08-spec/N0` Q-N5._ |
+| 14 | Danh mục tin tức: route index riêng / filter in-page | **Filter in-page** (canonical `/tin-tuc`, lọc bằng nút) | ☐ | | | IA + SEO tin tức. FE demo hiện lọc client-side; `sitemap.xml` đã comment-out 3 URL category cho khớp. Bật route riêng (có SEO landing) chỉ khi khách yêu cầu = full-build option. _Quyết định đội thầu — cần khách xác nhận (câu hỏi I)._ |
+| 15 | Số cột Footer | **4 cột tạm cho demo** (thông tin · 2 cột menu · form) | ☐ | | | Layout footer. brief §7 ghi **3 cột**, sitemap.jfif vẽ **6 cột** → chưa đổi layout, chờ khách chốt. _Cần khách xác nhận (câu hỏi I)._ |
 
 ## Cách dùng
 - Đổi ☐ thành ☑ khi chốt, điền cột "Quyết định cuối" + ngày.

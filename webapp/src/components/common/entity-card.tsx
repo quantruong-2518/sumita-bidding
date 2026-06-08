@@ -47,7 +47,7 @@ export function EntityCard({
   footer,
 }: EntityCardProps) {
   return (
-    <Card className="flex flex-col gap-0 overflow-hidden p-0">
+    <Card className="group/entity relative flex flex-col gap-0 overflow-hidden p-0 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/[0.06] hover:ring-primary/20">
       <div className="relative">
         <Media label={image ?? title} ratio={imageRatio} className="border-0 border-b border-border" />
         {badge ? (
@@ -59,9 +59,9 @@ export function EntityCard({
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold leading-snug">
+          <h3 className="font-heading text-lg font-semibold leading-snug">
             {href ? (
-              <Link href={href} className="outline-none after:absolute after:inset-0 hover:underline">
+              <Link href={href} className="outline-none transition-colors after:absolute after:inset-0 group-hover/entity:text-primary">
                 {title}
               </Link>
             ) : (
@@ -97,9 +97,9 @@ export function EntityCard({
         <div className="mt-auto pt-2">
           {footer ??
             (href && ctaLabel ? (
-              <span className="inline-flex items-center gap-1 text-sm font-medium">
+              <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
                 {ctaLabel}
-                <Icon name="ArrowRight" className="size-4" />
+                <Icon name="ArrowRight" className="size-4 transition-transform group-hover/entity:translate-x-0.5" />
               </span>
             ) : null)}
         </div>

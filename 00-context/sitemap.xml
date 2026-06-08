@@ -121,6 +121,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
+  <!-- ⚠️CONFIRM (DECISIONS #14): Danh mục tin (thị trường/tin dự án/sự kiện) hiện là FILTER IN-PAGE
+       trong FE demo — canonical = /tin-tuc, lọc client-side, KHÔNG có URL index riêng (tránh trùng
+       /tin-tuc/[slug] của trang chi tiết). Bỏ comment 3 <url> dưới CHỈ KHI khách muốn trang danh mục
+       riêng có SEO (cần thêm route /tin-tuc/danh-muc/<cat> ở full-build). Câu hỏi khách: nhóm I. -->
+  <!--
   <url>
     <loc>https://sumita.vn/tin-tuc/thi-truong</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tin-tuc/thi-truong"/>
@@ -145,6 +150,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
+  -->
   <!-- ⚠️CONFIRM: sitemap.jfif có thêm mục "Báo chí nói gì về Sumita" (4 mục). Bỏ comment nếu khách chốt. -->
   <!--
   <url>

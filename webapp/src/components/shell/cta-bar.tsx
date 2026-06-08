@@ -21,7 +21,7 @@ export function CtaBar() {
         rel={external ? "noreferrer" : undefined}
         title={label}
         aria-label={label}
-        className="flex size-10 items-center justify-center border border-border bg-background hover:bg-accent"
+        className="flex size-10 items-center justify-center rounded-lg border border-border bg-card text-foreground/80 shadow-sm transition-colors hover:border-primary/30 hover:bg-accent hover:text-primary lg:rounded-full"
       >
         <Icon name={icon} className="size-5" />
       </Link>
@@ -31,17 +31,27 @@ export function CtaBar() {
   return (
     <>
       {/* Mobile: thanh cố định dưới cùng */}
-      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2 border-t border-border bg-background p-2 lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2 border-t border-border bg-background/95 p-2 backdrop-blur supports-[backdrop-filter]:bg-background/80 lg:hidden">
         {CTA_CHANNELS.map((c) => (
           <Channel key={c.id} id={c.id} icon={c.icon} href={c.href} label={t(c.label)} />
         ))}
-        <LeadButton className="ml-auto flex-1" lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "cta-bar" }}>
+        <LeadButton variant="cta" className="ml-auto flex-1" lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "cta-bar" }}>
           Đặt lịch khảo sát
         </LeadButton>
       </div>
 
-      {/* Desktop: cột nổi bên phải */}
-      <div className="fixed bottom-6 right-4 z-40 hidden flex-col gap-2 lg:flex">
+      {/* Desktop: cột nổi bên phải. Nút "Đặt lịch khảo sát" (CTA chuyển đổi chính, brief §6) ở trên cùng. */}
+      <div className="fixed bottom-6 right-4 z-40 hidden flex-col items-center gap-2 lg:flex">
+        <LeadButton
+          variant="cta"
+          size="icon"
+          title="Đặt lịch khảo sát"
+          aria-label="Đặt lịch khảo sát"
+          className="size-12 rounded-full shadow-md"
+          lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "cta-bar" }}
+        >
+          <Icon name="Calendar" className="size-5" />
+        </LeadButton>
         {CTA_CHANNELS.map((c) => (
           <Channel key={c.id} id={c.id} icon={c.icon} href={c.href} label={t(c.label)} />
         ))}
