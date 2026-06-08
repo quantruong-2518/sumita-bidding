@@ -10,7 +10,7 @@ export const CCNS: Ccn[] = [
     slug: "ccn-hung-nhan",
     name: L("CCN Hưng Nhân", "Hung Nhan Cluster"),
     tagline: L(
-      "Cụm công nghiệp đa ngành 50 ha — kết nối nhanh cảng Hải Phòng, hạ tầng kỹ thuật đồng bộ.",
+      "Cụm công nghiệp đa ngành 50 ha, kết nối nhanh cảng Hải Phòng, hạ tầng kỹ thuật đồng bộ.",
       "A 50-ha multi-sector cluster with fast access to Hai Phong port.",
     ),
     heroImage: "ccn/hung-nhan/hero",
@@ -37,9 +37,9 @@ export const CCNS: Ccn[] = [
     },
     masterPlanImage: "ccn/hung-nhan/master-plan",
     zones: [
-      { name: L("Phân khu A — nhà máy lớn", "Zone A — large factories"), note: L("Lô 1–3 ha", "1–3 ha lots") },
-      { name: L("Phân khu B — nhà xưởng vừa", "Zone B — medium"), note: L("Lô 0.5–1 ha", "0.5–1 ha lots") },
-      { name: L("Phân khu C — kho & dịch vụ", "Zone C — warehouse & service") },
+      { name: L("Phân khu A: nhà máy lớn", "Zone A: large factories"), note: L("Lô 1-3 ha", "1-3 ha lots") },
+      { name: L("Phân khu B: nhà xưởng vừa", "Zone B: medium"), note: L("Lô 0.5-1 ha", "0.5-1 ha lots") },
+      { name: L("Phân khu C: kho & dịch vụ", "Zone C: warehouse & service") },
       { name: L("Cây xanh & hạ tầng kỹ thuật", "Green & utilities") },
     ],
     infrastructure: [

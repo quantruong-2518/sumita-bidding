@@ -1,22 +1,17 @@
 "use client";
 
 import { useJob } from "@/lib/query/hooks";
-import { useTx } from "@/lib/i18n/use-tx";
+import { useTx, useTt } from "@/lib/i18n/use-tx";
+import { JOB_TYPE_LABEL } from "@/lib/i18n/labels";
 import { PageHeader } from "@/components/common/page-header";
 import { Section } from "@/components/common/section";
 import { DefinitionList, RichText } from "@/components/common/data-blocks";
 import { LoadingLines, ErrorState, EmptyState } from "@/components/common/states";
 import { LeadForm } from "@/components/lead/lead-form";
-import type { Job } from "@/lib/schema";
-
-const JOB_TYPE_LABEL: Record<Job["type"], string> = {
-  "full-time": "Toàn thời gian",
-  "part-time": "Bán thời gian",
-  "thoi-vu": "Thời vụ",
-};
 
 export function JobDetailView({ slug }: { slug: string }) {
   const t = useTx();
+  const tt = useTt();
   const { data: job, isLoading, isError, refetch } = useJob(slug);
 
   if (isLoading) {
@@ -36,7 +31,7 @@ export function JobDetailView({ slug }: { slug: string }) {
   if (!job) {
     return (
       <Section>
-        <EmptyState title="Không tìm thấy tin tuyển dụng" />
+        <EmptyState title={tt("Không tìm thấy tin tuyển dụng", "Job posting not found")} />
       </Section>
     );
   }
@@ -45,23 +40,27 @@ export function JobDetailView({ slug }: { slug: string }) {
     <>
       <PageHeader
         breadcrumbs={[
-          { label: "Trang chủ", href: "/" },
-          { label: "Tuyển dụng", href: "/tuyen-dung" },
+          { label: tt("Trang chủ", "Home"), href: "/" },
+          { label: tt("Tuyển dụng", "Careers"), href: "/careers" },
           { label: t(job.title) },
         ]}
         title={t(job.title)}
         description={`${t(job.department)} · ${t(job.location)}`}
       />
 
-      <Section title="Mô tả công việc">
+      <Section title={tt("Mô tả công việc", "Job description")}>
         <div className="space-y-6">
+          {/* Thuộc tính tin tuyển dụng: giá trị có thể dài ("Hưng Yên (Thái Bình cũ)") →
+              layout stacked (nhãn trên, giá trị dưới canh trái) thay vì justify-between. */}
           <DefinitionList
+            layout="stacked"
+            columns={2}
             items={[
-              { label: "Phòng ban", value: t(job.department) },
-              { label: "Địa điểm", value: t(job.location) },
-              { label: "Hình thức", value: JOB_TYPE_LABEL[job.type] },
-              { label: "Mức lương", value: job.salary ? t(job.salary) : "Thoả thuận" },
-              { label: "Hạn nộp", value: job.deadline ?? "—" },
+              { label: tt("Phòng ban", "Department"), value: t(job.department) },
+              { label: tt("Địa điểm", "Location"), value: t(job.location) },
+              { label: tt("Hình thức", "Employment type"), value: t(JOB_TYPE_LABEL[job.type]) },
+              { label: tt("Mức lương", "Salary"), value: job.salary ? t(job.salary) : tt("Thoả thuận", "Negotiable") },
+              { label: tt("Hạn nộp", "Deadline"), value: job.deadline ?? tt("Tuyển liên tục", "Ongoing") },
             ]}
           />
           <RichText content={t(job.description)} />
@@ -75,7 +74,7 @@ export function JobDetailView({ slug }: { slug: string }) {
         </div>
       </Section>
 
-      <Section title="Ứng tuyển" bordered>
+      <Section title={tt("Ứng tuyển", "Apply")} bordered>
         <LeadForm variant="ung-tuyen" source={`job:${slug}`} />
       </Section>
     </>

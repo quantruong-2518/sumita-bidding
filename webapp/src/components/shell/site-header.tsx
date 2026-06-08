@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { MAIN_NAV } from "@/lib/mock";
-import { useTx } from "@/lib/i18n/use-tx";
+import { useTx, useTt } from "@/lib/i18n/use-tx";
 import { Container } from "@/components/common/section";
 import { Icon } from "@/components/common/icon";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,9 @@ import { LanguageSwitcher } from "./language-switcher";
 /* G1/G2 — Header sticky + main menu + utility (search/lang). */
 export function SiteHeader() {
   const t = useTx();
+  const tt = useTt();
   const [open, setOpen] = useState(false);
+  const bookLabel = tt("Đặt lịch khảo sát", "Book a site visit");
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -31,7 +33,8 @@ export function SiteHeader() {
           <span className="text-cta">.</span>
         </Link>
 
-        <nav className="ml-2 hidden items-center gap-0.5 lg:flex">
+        {/* Nav đầy đủ chỉ hiện ở xl: 7 mục + cluster tiện ích không đủ chỗ 1 dòng dưới xl → dùng hamburger. */}
+        <nav className="ml-2 hidden items-center gap-0.5 xl:flex">
           {MAIN_NAV.map((item) =>
             item.children ? (
               <DropdownMenu key={item.href}>
@@ -58,20 +61,26 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <SearchBar className="hidden w-44 md:block" />
+          {/* Tìm kiếm desktop = nút icon dẫn tới /search (ô input đầy đủ nằm trong menu mobile)
+              — giữ header gọn 1 dòng, tránh chèn ô input chiếm chỗ của nav. */}
+          <Button asChild variant="ghost" size="icon" className="hidden lg:inline-flex">
+            <Link href="/search" aria-label={tt("Tìm kiếm", "Search")}>
+              <Icon name="Search" className="size-4" />
+            </Link>
+          </Button>
           <LanguageSwitcher className="hidden sm:inline-flex" />
           <LeadButton
             size="sm"
             variant="cta"
             className="hidden lg:inline-flex"
-            lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "header" }}
+            lead={{ variant: "khao-sat", title: bookLabel, source: "header" }}
           >
-            Đặt lịch khảo sát
+            {bookLabel}
           </LeadButton>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="lg:hidden" aria-label="Mở menu">
+              <Button variant="outline" size="icon" className="xl:hidden" aria-label={tt("Mở menu", "Open menu")}>
                 <Icon name="Menu" className="size-5" />
               </Button>
             </SheetTrigger>
@@ -110,10 +119,10 @@ export function SiteHeader() {
                 <LeadButton
                   variant="cta"
                   className="mt-3 w-full"
-                  lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "mobile-menu" }}
+                  lead={{ variant: "khao-sat", title: bookLabel, source: "mobile-menu" }}
                   onClick={() => setOpen(false)}
                 >
-                  Đặt lịch khảo sát
+                  {bookLabel}
                 </LeadButton>
               </div>
             </SheetContent>

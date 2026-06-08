@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useTt } from "@/lib/i18n/use-tx";
 import { cn } from "@/lib/utils";
 import { Icon } from "./icon";
 
@@ -26,12 +27,14 @@ const LeafletMap = dynamic(() => import("./leaflet-map"), {
   ssr: false,
   loading: () => (
     <div className="flex h-full w-full items-center justify-center bg-muted text-sm text-muted-foreground">
-      <Icon name="MapPin" className="mr-2 size-4 animate-pulse" /> Đang tải bản đồ…
+      {/* Hook-less (chạy ngoài component) → giữ song ngữ. */}
+      <Icon name="MapPin" className="mr-2 size-4 animate-pulse" /> Đang tải bản đồ… / Loading map…
     </div>
   ),
 });
 
 export function MapPlaceholder({ pins, className }: { pins: MapPinView[]; className?: string }) {
+  const tt = useTt();
   const hasGeo = pins.some((p) => p.lat != null && p.lng != null);
 
   return (
@@ -44,7 +47,7 @@ export function MapPlaceholder({ pins, className }: { pins: MapPinView[]; classN
           // Fallback: ảnh nền placeholder + pin theo % (khi pin chưa có toạ độ).
           <>
             <span className="pointer-events-none absolute left-3 top-2 z-[1] text-[11px] text-muted-foreground/70">
-              Bản đồ tương tác (placeholder)
+              {tt("Bản đồ tương tác (placeholder)", "Interactive map (placeholder)")}
             </span>
             {pins.map((p) => {
               const Pin = (
@@ -80,8 +83,8 @@ export function MapPlaceholder({ pins, className }: { pins: MapPinView[]; classN
               className="flex min-h-11 items-center gap-2 p-3 text-sm transition-colors hover:bg-accent focus-visible:bg-accent focus-visible:outline-none"
             >
               <Icon name="MapPin" className="size-4 shrink-0 text-cta" />
-              <span className="font-medium">{p.label}</span>
-              <Icon name="ChevronRight" className="ml-auto size-4 text-muted-foreground" />
+              <span className="min-w-0 break-words font-medium">{p.label}</span>
+              <Icon name="ChevronRight" className="ml-auto size-4 shrink-0 text-muted-foreground" />
             </Link>
           </li>
         ))}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { CTA_CHANNELS } from "@/lib/mock";
-import { useTx } from "@/lib/i18n/use-tx";
+import { useTx, useTt } from "@/lib/i18n/use-tx";
 import { Icon } from "@/components/common/icon";
 import { LeadButton } from "@/components/lead/lead-cta";
 
@@ -10,6 +10,8 @@ import { LeadButton } from "@/components/lead/lead-cta";
    ⚠️CONFIRM: sitemap.jfif vẽ bộ icon khác (tìm kiếm/bản đồ/tài liệu/chia sẻ). */
 export function CtaBar() {
   const t = useTx();
+  const tt = useTt();
+  const bookLabel = tt("Đặt lịch khảo sát", "Book a site visit");
 
   const Channel = ({
     id,
@@ -56,8 +58,8 @@ export function CtaBar() {
             className={i >= 2 ? "hidden sm:flex" : ""}
           />
         ))}
-        <LeadButton variant="cta" className="ml-auto flex-1" lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "cta-bar" }}>
-          Đặt lịch khảo sát
+        <LeadButton variant="cta" className="ml-auto min-w-0 flex-1 truncate" lead={{ variant: "khao-sat", title: bookLabel, source: "cta-bar" }}>
+          {bookLabel}
         </LeadButton>
       </div>
 
@@ -66,10 +68,10 @@ export function CtaBar() {
         <LeadButton
           variant="cta"
           size="icon"
-          title="Đặt lịch khảo sát"
-          aria-label="Đặt lịch khảo sát"
+          title={bookLabel}
+          aria-label={bookLabel}
           className="size-12 rounded-full shadow-md"
-          lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "cta-bar" }}
+          lead={{ variant: "khao-sat", title: bookLabel, source: "cta-bar" }}
         >
           <Icon name="Calendar" className="size-5" />
         </LeadButton>

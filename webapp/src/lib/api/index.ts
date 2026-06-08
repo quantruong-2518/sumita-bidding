@@ -88,10 +88,10 @@ function match(q: string, ...parts: (LocalizedText | undefined)[]) {
 export function search(q: string): Promise<SearchHit[]> {
   if (!q || q.trim().length < 2) return resolve<SearchHit[]>([], 0);
   const hits: SearchHit[] = [];
-  for (const c of CCNS) if (match(q, c.name, c.tagline, c.overview)) hits.push({ type: "ccn", title: c.name, href: `/san-pham/dat-cong-nghiep/${c.slug}` });
-  for (const f of FACTORIES) if (match(q, f.name)) hits.push({ type: "factory", title: f.name, href: `/san-pham/nha-xuong-xay-san#${f.slug}` });
-  for (const n of NEWS) if (match(q, n.title, n.excerpt)) hits.push({ type: "news", title: n.title, href: `/tin-tuc/${n.slug}` });
-  for (const j of JOBS) if (match(q, j.title, j.department)) hits.push({ type: "job", title: j.title, href: `/tuyen-dung/${j.slug}` });
+  for (const c of CCNS) if (match(q, c.name, c.tagline, c.overview)) hits.push({ type: "ccn", title: c.name, href: `/products/industrial-land/${c.slug}` });
+  for (const f of FACTORIES) if (match(q, f.name)) hits.push({ type: "factory", title: f.name, href: `/products/ready-built-factory#${f.slug}` });
+  for (const n of NEWS) if (match(q, n.title, n.excerpt)) hits.push({ type: "news", title: n.title, href: `/news/${n.slug}` });
+  for (const j of JOBS) if (match(q, j.title, j.department)) hits.push({ type: "job", title: j.title, href: `/careers/${j.slug}` });
   return resolve(hits);
 }
 

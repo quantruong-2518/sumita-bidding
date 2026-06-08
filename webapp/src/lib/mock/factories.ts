@@ -3,7 +3,7 @@ import { L, type Factory } from "@/lib/schema";
 export const FACTORIES: Factory[] = [
   {
     slug: "nx-a1-hung-nhan",
-    name: L("Nhà xưởng A1 — CCN Hưng Nhân", "Factory A1 — Hung Nhan"),
+    name: L("Nhà xưởng A1, CCN Hưng Nhân", "Factory A1, Hung Nhan"),
     ccnSlug: "ccn-hung-nhan",
     area: 2500,
     priceFrom: L("từ 4.2 USD/m²/tháng", "from 4.2 USD/m²/month"),
@@ -18,7 +18,7 @@ export const FACTORIES: Factory[] = [
   },
   {
     slug: "nx-a2-hung-nhan",
-    name: L("Nhà xưởng A2 — CCN Hưng Nhân", "Factory A2 — Hung Nhan"),
+    name: L("Nhà xưởng A2, CCN Hưng Nhân", "Factory A2, Hung Nhan"),
     ccnSlug: "ccn-hung-nhan",
     area: 5000,
     priceFrom: L("từ 4.0 USD/m²/tháng", "from 4.0 USD/m²/month"),
@@ -31,7 +31,7 @@ export const FACTORIES: Factory[] = [
   },
   {
     slug: "nx-b1-duc-hiep",
-    name: L("Nhà xưởng B1 — CCN Đức Hiệp", "Factory B1 — Duc Hiep"),
+    name: L("Nhà xưởng B1, CCN Đức Hiệp", "Factory B1, Duc Hiep"),
     ccnSlug: "ccn-duc-hiep",
     area: 1800,
     priceFrom: L("từ 3.8 USD/m²/tháng", "from 3.8 USD/m²/month"),

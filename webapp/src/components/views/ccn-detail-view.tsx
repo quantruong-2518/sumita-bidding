@@ -1,14 +1,15 @@
 "use client";
 
 import { useCcn, useDocs } from "@/lib/query/hooks";
-import { useTx } from "@/lib/i18n/use-tx";
-import type { Ccn } from "@/lib/schema";
+import { useTx, useTt } from "@/lib/i18n/use-tx";
+import { CCN_STATUS_LABEL, LEGAL_STATUS_LABEL } from "@/lib/i18n/labels";
 import { Container, Section } from "@/components/common/section";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { PageHero } from "@/components/common/page-hero";
 import { StickySubNav } from "@/components/common/sticky-sub-nav";
 import {
   DefinitionList,
+  DescriptionList,
   IconFeatureGrid,
   RichText,
   StatList,
@@ -27,24 +28,12 @@ import { LeadForm } from "@/components/lead/lead-form";
    Sub-nav + thân trang sinh từ cùng 1 mảng `sections` → luôn đồng bộ.
    AC-02: section không có dữ liệu → ẩn cả ở sub-nav lẫn nội dung. */
 
-// ── enum label maps ──
-const STATUS_LABEL: Record<Ccn["status"], string> = {
-  "dang-cho-thue": "Đang cho thuê",
-  "sap-mo-ban": "Sắp mở bán",
-  "da-lap-day": "Đã lấp đầy",
-};
-
-type LegalStatus = "xong" | "dang-lam" | "ke-hoach";
-const LEGAL_STATUS_LABEL: Record<LegalStatus, string> = {
-  xong: "Hoàn thành",
-  "dang-lam": "Đang thực hiện",
-  "ke-hoach": "Kế hoạch",
-};
-const legalStatusLabel = (s: LegalStatus) => LEGAL_STATUS_LABEL[s] ?? s;
-
 export function CcnDetailView({ slug }: { slug: string }) {
   const t = useTx();
+  const tt = useTt();
   const { data, isLoading, isError, refetch } = useCcn(slug);
+  const legalStatusLabel = (s: keyof typeof LEGAL_STATUS_LABEL) =>
+    LEGAL_STATUS_LABEL[s] ? t(LEGAL_STATUS_LABEL[s]) : s;
   // Hook tài liệu gọi vô điều kiện ở top-level (mục 11). docs có thể rỗng → EmptyState.
   const { data: docs } = useDocs({ ccnSlug: slug });
 
@@ -66,13 +55,13 @@ export function CcnDetailView({ slug }: { slug: string }) {
   if (!data) {
     return (
       <Section>
-        <EmptyState title="Không tìm thấy cụm công nghiệp" />
+        <EmptyState title={tt("Không tìm thấy cụm công nghiệp", "Industrial cluster not found")} />
       </Section>
     );
   }
 
   const ccn = data;
-  const statusLabel = STATUS_LABEL[ccn.status] ?? ccn.status;
+  const statusLabel = CCN_STATUS_LABEL[ccn.status] ? t(CCN_STATUS_LABEL[ccn.status]) : ccn.status;
 
   // ── Cấu hình 12 section (id · label · hasData · render) ──
   type SectionConfig = { id: string; label: string; title: string; hasData: boolean; render: () => React.ReactNode };
@@ -81,15 +70,15 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 1. Tổng quan — luôn có
     {
       id: "tong-quan",
-      label: "Tổng quan",
-      title: "Tổng quan",
+      label: tt("Tổng quan", "Overview"),
+      title: tt("Tổng quan", "Overview"),
       hasData: true,
       render: () => {
-        const items: { label: string; value: string }[] = [{ label: "Diện tích", value: `${ccn.area} ha` }];
-        if (ccn.occupancy != null) items.push({ label: "Tỉ lệ lấp đầy", value: `${ccn.occupancy}%` });
-        if (ccn.priceFrom) items.push({ label: "Giá thuê", value: t(ccn.priceFrom) });
-        if (ccn.landType) items.push({ label: "Loại hình", value: t(ccn.landType) });
-        items.push({ label: "Trạng thái", value: statusLabel });
+        const items: { label: string; value: string }[] = [{ label: tt("Diện tích", "Area"), value: `${ccn.area} ha` }];
+        if (ccn.occupancy != null) items.push({ label: tt("Tỉ lệ lấp đầy", "Occupancy rate"), value: `${ccn.occupancy}%` });
+        if (ccn.priceFrom) items.push({ label: tt("Giá thuê", "Lease price"), value: t(ccn.priceFrom) });
+        if (ccn.landType) items.push({ label: tt("Loại hình", "Land type"), value: t(ccn.landType) });
+        items.push({ label: tt("Trạng thái", "Status"), value: statusLabel });
         return (
           <div className="space-y-6">
             <RichText content={t(ccn.overview)} />
@@ -102,14 +91,14 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 2. Vị trí — luôn có (address tồn tại)
     {
       id: "vi-tri",
-      label: "Vị trí",
-      title: "Vị trí chiến lược",
+      label: tt("Vị trí", "Location"),
+      title: tt("Vị trí chiến lược", "Strategic location"),
       hasData: true,
       render: () => (
         <div className="space-y-6">
           <p className="text-foreground/90">{t(ccn.location.address)}</p>
           <DefinitionList items={ccn.location.distances.map((d) => ({ label: t(d.label), value: d.value }))} />
-          <Media src={ccn.location.image} label="Bản đồ vị trí" alt={`Vị trí ${t(ccn.name)}`} sizes="(max-width: 1024px) 100vw, 66vw" />
+          <Media src={ccn.location.image} label={tt("Bản đồ vị trí", "Location map")} alt={`${tt("Vị trí", "Location")} ${t(ccn.name)}`} sizes="(max-width: 1024px) 100vw, 66vw" />
         </div>
       ),
     },
@@ -117,13 +106,17 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 3. Quy hoạch — masterPlanImage || zones
     {
       id: "quy-hoach",
-      label: "Quy hoạch",
-      title: "Quy hoạch mặt bằng",
+      label: tt("Quy hoạch", "Master plan"),
+      title: tt("Quy hoạch mặt bằng", "Master plan"),
       hasData: Boolean(ccn.masterPlanImage) || ccn.zones.length > 0,
       render: () => (
         <div className="space-y-6">
-          <Media src={ccn.masterPlanImage} label="Mặt bằng quy hoạch" alt={`Quy hoạch ${t(ccn.name)}`} sizes="(max-width: 1024px) 100vw, 66vw" />
-          <DefinitionList items={ccn.zones.map((z) => ({ label: t(z.name), value: z.note ? t(z.note) : "—" }))} />
+          <Media src={ccn.masterPlanImage} label={tt("Mặt bằng quy hoạch", "Master plan layout")} alt={`${tt("Quy hoạch", "Master plan")} ${t(ccn.name)}`} sizes="(max-width: 1024px) 100vw, 66vw" />
+          {/* Phân khu = tên (dài) + ghi chú → DescriptionList xếp dọc, không dùng justify-between */}
+          <DescriptionList
+            columns={2}
+            items={ccn.zones.map((z) => ({ label: t(z.name), value: z.note ? t(z.note) : tt("Theo quy hoạch", "Per master plan") }))}
+          />
         </div>
       ),
     },
@@ -131,8 +124,8 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 4. Hạ tầng — infrastructure
     {
       id: "ha-tang",
-      label: "Hạ tầng",
-      title: "Hạ tầng kỹ thuật",
+      label: tt("Hạ tầng", "Infrastructure"),
+      title: tt("Hạ tầng kỹ thuật", "Technical infrastructure"),
       hasData: ccn.infrastructure.length > 0,
       render: () => (
         <IconFeatureGrid
@@ -144,8 +137,8 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 5. Ngành nghề — industries
     {
       id: "nganh-nghe",
-      label: "Ngành nghề",
-      title: "Ngành nghề thu hút",
+      label: tt("Ngành nghề", "Industries"),
+      title: tt("Ngành nghề thu hút", "Target industries"),
       hasData: ccn.industries.length > 0,
       render: () => (
         <TagList
@@ -160,8 +153,8 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 6. Lao động — labor
     {
       id: "lao-dong",
-      label: "Lao động",
-      title: "Lao động & dân cư",
+      label: tt("Lao động", "Labor"),
+      title: tt("Lao động & dân cư", "Labor & population"),
       hasData: ccn.labor.length > 0,
       render: () => <StatList items={ccn.labor.map((x) => ({ label: t(x.label), value: t(x.value) }))} />,
     },
@@ -169,8 +162,8 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 7. Ưu đãi — incentives
     {
       id: "uu-dai",
-      label: "Ưu đãi",
-      title: "Chính sách ưu đãi",
+      label: tt("Ưu đãi", "Incentives"),
+      title: tt("Chính sách ưu đãi", "Incentive policies"),
       hasData: ccn.incentives.length > 0,
       render: () => (
         <ul className="list-disc space-y-1 pl-5">
@@ -184,8 +177,8 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 8. Pháp lý — legal
     {
       id: "phap-ly",
-      label: "Pháp lý",
-      title: "Pháp lý dự án",
+      label: tt("Pháp lý", "Legal status"),
+      title: tt("Pháp lý dự án", "Project legal status"),
       hasData: ccn.legal.length > 0,
       render: () => (
         <DefinitionList items={ccn.legal.map((l) => ({ label: t(l.item), value: legalStatusLabel(l.status) }))} />
@@ -195,12 +188,12 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 9. Tiến độ — progress hoặc milestones
     {
       id: "tien-do",
-      label: "Tiến độ",
-      title: "Tiến độ thực tế",
+      label: tt("Tiến độ", "Progress"),
+      title: tt("Tiến độ thực tế", "Actual progress"),
       hasData: ccn.progress != null || ccn.milestones.length > 0,
       render: () => (
         <div className="space-y-6">
-          {ccn.progress != null ? <p className="font-medium">Tiến độ: {ccn.progress}%</p> : null}
+          {ccn.progress != null ? <p className="font-medium">{tt("Tiến độ", "Progress")}: {ccn.progress}%</p> : null}
           <Timeline items={ccn.milestones.map((m) => ({ date: m.date, label: t(m.label), done: m.done }))} />
         </div>
       ),
@@ -209,22 +202,22 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 10. Hình ảnh / flycam — gallery
     {
       id: "hinh-anh",
-      label: "Hình ảnh",
-      title: "Hình ảnh / flycam",
+      label: tt("Hình ảnh", "Gallery"),
+      title: tt("Hình ảnh / flycam", "Gallery / aerial footage"),
       hasData: ccn.gallery.length > 0,
       render: () => (
         <div className="space-y-6">
           {/* Demo: ảnh aerial + nút Play giả lập video flycam. Production = thay <video> clip khách cấp (DECISIONS #4). */}
           {ccn.flycamVideo ? (
             <div className="group/flycam relative overflow-hidden rounded-lg">
-              <Media src={ccn.flycamVideo} label="Video flycam" alt={`Flycam ${t(ccn.name)}`} ratio={16 / 9} sizes="(max-width: 1024px) 100vw, 66vw" />
+              <Media src={ccn.flycamVideo} label={tt("Video flycam", "Aerial video")} alt={`${tt("Flycam", "Aerial")} ${t(ccn.name)}`} ratio={16 / 9} sizes="(max-width: 1024px) 100vw, 66vw" />
               <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <span className="flex size-16 items-center justify-center rounded-full bg-cta text-cta-foreground shadow-lg transition-transform group-hover/flycam:scale-105">
                   <Icon name="Play" className="size-7" />
                 </span>
               </span>
               <span className="pointer-events-none absolute bottom-3 left-3 rounded bg-primary/70 px-2 py-1 text-xs font-medium text-white">
-                Video flycam (demo — clip sẽ do khách cung cấp)
+                {tt("Video flycam (demo — clip sẽ do khách cung cấp)", "Aerial video (demo — clip to be provided by client)")}
               </span>
             </div>
           ) : null}
@@ -236,22 +229,22 @@ export function CcnDetailView({ slug }: { slug: string }) {
     // 11. Tài liệu — luôn hiện (rỗng → EmptyState)
     {
       id: "tai-lieu",
-      label: "Tài liệu",
-      title: "Tài liệu",
+      label: tt("Tài liệu", "Downloads"),
+      title: tt("Tài liệu", "Downloads"),
       hasData: true,
       render: () =>
         docs && docs.length > 0 ? (
           <DownloadList docs={docs} ccnInterest={t(ccn.name)} source="ccn-detail" />
         ) : (
-          <EmptyState title="Chưa có tài liệu" description="Tài liệu cho cụm công nghiệp này sẽ được cập nhật." icon="FileText" />
+          <EmptyState title={tt("Chưa có tài liệu", "No documents yet")} description={tt("Tài liệu cho cụm công nghiệp này sẽ được cập nhật.", "Documents for this industrial cluster will be updated soon.")} icon="FileText" />
         ),
     },
 
     // 12. Đăng ký — luôn hiện
     {
       id: "dang-ky",
-      label: "Đăng ký",
-      title: "Đăng ký tư vấn / khảo sát",
+      label: tt("Đăng ký", "Register"),
+      title: tt("Đăng ký tư vấn / khảo sát", "Register for consultation / site visit"),
       hasData: true,
       render: () => (
         <LeadForm variant="tu-van" defaultCcnInterest={t(ccn.name)} source="ccn-detail" />
@@ -267,9 +260,9 @@ export function CcnDetailView({ slug }: { slug: string }) {
       <Container className="py-4">
         <Breadcrumbs
           items={[
-            { label: "Trang chủ", href: "/" },
-            { label: "Sản phẩm", href: "/san-pham/dat-cong-nghiep" },
-            { label: "Đất công nghiệp", href: "/san-pham/dat-cong-nghiep" },
+            { label: tt("Trang chủ", "Home"), href: "/" },
+            { label: tt("Sản phẩm", "Products"), href: "/products/industrial-land" },
+            { label: tt("Đất công nghiệp", "Industrial land"), href: "/products/industrial-land" },
             { label: t(ccn.name) },
           ]}
         />
@@ -280,7 +273,7 @@ export function CcnDetailView({ slug }: { slug: string }) {
         title={t(ccn.name)}
         tagline={t(ccn.tagline)}
         image={ccn.heroImage}
-        imageAlt={`Toàn cảnh ${t(ccn.name)}`}
+        imageAlt={`${tt("Toàn cảnh", "Aerial view of")} ${t(ccn.name)}`}
         size="md"
         actions={<ConversionCtas ccnInterest={t(ccn.name)} source="ccn-hero" />}
       />

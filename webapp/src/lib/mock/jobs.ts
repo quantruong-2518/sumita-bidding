@@ -19,7 +19,7 @@ export const JOBS: Job[] = [
   {
     slug: "ky-su-van-hanh-ha-tang",
     title: L("Kỹ sư Vận hành hạ tầng cụm công nghiệp", "Infrastructure Operations Engineer"),
-    department: L("Kỹ thuật — Vận hành", "Technical — Operations"),
+    department: L("Kỹ thuật & Vận hành", "Technical & Operations"),
     location: L("CCN Hưng Nhân", "Hung Nhan Cluster"),
     type: "full-time",
     deadline: "2026-08-15",

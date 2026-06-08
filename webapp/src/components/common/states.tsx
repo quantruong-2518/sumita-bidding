@@ -2,6 +2,7 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { useTt } from "@/lib/i18n/use-tx";
 import { cn } from "@/lib/utils";
 import { Icon } from "./icon";
 import { gridColsClass } from "./grid";
@@ -36,7 +37,7 @@ export function LoadingLines({ lines = 3, className }: { lines?: number; classNa
 }
 
 export function EmptyState({
-  title = "Chưa có dữ liệu",
+  title,
   description,
   icon = "ImageOff",
   action,
@@ -46,11 +47,12 @@ export function EmptyState({
   icon?: string;
   action?: React.ReactNode;
 }) {
+  const tt = useTt();
   return (
     <div className="flex flex-col items-center justify-center gap-3 border border-dashed border-border p-10 text-center">
       <Icon name={icon} className="size-7 text-muted-foreground" />
       <div className="space-y-1">
-        <p className="font-medium">{title}</p>
+        <p className="font-medium">{title ?? tt("Chưa có dữ liệu", "No data yet")}</p>
         {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
       </div>
       {action}
@@ -59,24 +61,27 @@ export function EmptyState({
 }
 
 export function ErrorState({
-  title = "Không tải được dữ liệu",
-  description = "Đã có lỗi xảy ra. Vui lòng thử lại.",
+  title,
+  description,
   onRetry,
 }: {
   title?: string;
   description?: string;
   onRetry?: () => void;
 }) {
+  const tt = useTt();
   return (
     <div className="flex flex-col items-center justify-center gap-3 border border-border p-10 text-center">
       <Icon name="X" className="size-7 text-destructive" />
       <div className="space-y-1">
-        <p className="font-medium">{title}</p>
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="font-medium">{title ?? tt("Không tải được dữ liệu", "Couldn't load data")}</p>
+        <p className="text-sm text-muted-foreground">
+          {description ?? tt("Đã có lỗi xảy ra. Vui lòng thử lại.", "Something went wrong. Please try again.")}
+        </p>
       </div>
       {onRetry ? (
         <Button variant="outline" size="sm" onClick={onRetry}>
-          Thử lại
+          {tt("Thử lại", "Try again")}
         </Button>
       ) : null}
     </div>

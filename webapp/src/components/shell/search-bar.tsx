@@ -4,12 +4,15 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/common/icon";
+import { useTt } from "@/lib/i18n/use-tx";
 import { cn } from "@/lib/utils";
 
-/* Ô tìm kiếm (G2) → điều hướng /tim-kiem?q= (O-04). */
+/* Ô tìm kiếm (G2) → điều hướng /search?q= (O-04). */
 export function SearchBar({ className, onDone }: { className?: string; onDone?: () => void }) {
   const router = useRouter();
+  const tt = useTt();
   const [q, setQ] = useState("");
+  const searchLabel = tt("Tìm kiếm", "Search");
 
   return (
     <form
@@ -17,7 +20,7 @@ export function SearchBar({ className, onDone }: { className?: string; onDone?: 
         e.preventDefault();
         const v = q.trim();
         if (!v) return;
-        router.push(`/tim-kiem?q=${encodeURIComponent(v)}`);
+        router.push(`/search?q=${encodeURIComponent(v)}`);
         onDone?.();
       }}
       className={cn("relative", className)}
@@ -28,8 +31,8 @@ export function SearchBar({ className, onDone }: { className?: string; onDone?: 
         type="search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Tìm kiếm…"
-        aria-label="Tìm kiếm"
+        placeholder={`${searchLabel}…`}
+        aria-label={searchLabel}
         className="h-8 pl-8"
       />
     </form>

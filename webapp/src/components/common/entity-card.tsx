@@ -48,26 +48,35 @@ export function EntityCard({
 }: EntityCardProps) {
   return (
     <Card className="group/entity relative flex flex-col gap-0 overflow-hidden p-0 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/[0.06] hover:ring-primary/20">
-      <div className="relative">
-        {/* image = key ảnh (fixtures) → Media tra ra ảnh thật; thiếu → placeholder. alt/label = tiêu đề thẻ. */}
-        <Media
-          src={image}
-          label={title}
-          alt={title}
-          ratio={imageRatio}
-          className="border-0 border-b border-border"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-        {badge ? (
-          <Badge variant="default" className="absolute left-3 top-3">
-            {badge}
-          </Badge>
-        ) : null}
-      </div>
+      {/* Chỉ render ảnh khi có `image` (vd CCN/nhà xưởng/tin tức). Thẻ không ảnh (vd tuyển dụng)
+          bỏ hẳn khối ảnh — tránh placeholder lặp lại tiêu đề. Badge cần ảnh làm nền nên đi cùng. */}
+      {image ? (
+        <div className="relative">
+          <Media
+            src={image}
+            label={title}
+            alt={title}
+            ratio={imageRatio}
+            className="border-0 border-b border-border"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+          {badge ? (
+            <Badge variant="default" className="absolute left-3 top-3">
+              {badge}
+            </Badge>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="space-y-1">
-          <h3 className="font-heading text-lg font-semibold leading-snug">
+          {/* Badge cho thẻ không ảnh hiển thị inline (không có nền ảnh để phủ lên) */}
+          {!image && badge ? (
+            <Badge variant="secondary" className="mb-1">
+              {badge}
+            </Badge>
+          ) : null}
+          <h3 className="font-heading text-lg font-semibold leading-snug text-balance line-clamp-2">
             {href ? (
               <Link href={href} className="outline-none transition-colors after:absolute after:inset-0 group-hover/entity:text-primary">
                 {title}
@@ -76,7 +85,7 @@ export function EntityCard({
               title
             )}
           </h3>
-          {subtitle ? <p className="text-sm text-muted-foreground">{subtitle}</p> : null}
+          {subtitle ? <p className="line-clamp-2 text-sm text-muted-foreground">{subtitle}</p> : null}
         </div>
 
         {description ? <p className="line-clamp-3 text-sm text-foreground/80">{description}</p> : null}
@@ -84,9 +93,9 @@ export function EntityCard({
         {meta?.length ? (
           <dl className="mt-1 space-y-1.5 text-sm">
             {meta.map((m, i) => (
-              <div key={i} className="flex justify-between gap-3 border-b border-border pb-1.5">
-                <dt className="text-muted-foreground">{m.label}</dt>
-                <dd className="text-right font-medium">{m.value}</dd>
+              <div key={i} className="flex items-baseline justify-between gap-3 border-b border-border pb-1.5">
+                <dt className="min-w-0 text-muted-foreground">{m.label}</dt>
+                <dd className="min-w-0 break-words text-right font-medium">{m.value}</dd>
               </div>
             ))}
           </dl>

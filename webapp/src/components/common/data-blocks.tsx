@@ -11,7 +11,8 @@ export function StatList({ items, columns = 4 }: { items: { label: string; value
     <dl className={cn("grid gap-px overflow-hidden border border-border bg-border", gridColsClass[columns])}>
       {items.map((s, i) => (
         <div key={i} className="bg-background p-4">
-          <dd className="text-2xl font-semibold tracking-tight">{s.value}</dd>
+          {/* break-words + leading-tight: giá trị dài (vd "3 trường (bán kính 10 km)") không tràn ô ở mobile */}
+          <dd className="text-xl font-semibold leading-tight tracking-tight text-balance break-words sm:text-2xl">{s.value}</dd>
           <dt className="mt-1 text-sm text-muted-foreground">{s.label}</dt>
         </div>
       ))}
@@ -19,14 +20,62 @@ export function StatList({ items, columns = 4 }: { items: { label: string; value
   );
 }
 
-export function DefinitionList({ items, columns = 2 }: { items: { label: string; value: string }[]; columns?: number }) {
+/* Cặp key→value NGẮN (vd "Diện tích · 50 ha"). `layout`:
+   - "inline"  (mặc định): nhãn trái · giá trị phải, cùng baseline — cho thông số ngắn.
+   - "stacked": nhãn trên · giá trị dưới, canh trái — cho giá trị dài/nhiều chữ (vd hồ sơ tuyển dụng).
+   Với nội dung tên+mô tả (giá trị là 1 câu) → dùng <DescriptionList> thay vì block này. */
+export function DefinitionList({
+  items,
+  columns = 2,
+  layout = "inline",
+}: {
+  items: { label: string; value: string }[];
+  columns?: number;
+  layout?: "inline" | "stacked";
+}) {
   if (!items.length) return null;
+
+  if (layout === "stacked") {
+    return (
+      <dl className={cn("grid gap-x-8 gap-y-4", gridColsClass[columns])}>
+        {items.map((d, i) => (
+          <div key={i} className="border-b border-border pb-2.5">
+            <dt className="text-sm text-muted-foreground">{d.label}</dt>
+            <dd className="mt-0.5 font-medium break-words">{d.value}</dd>
+          </div>
+        ))}
+      </dl>
+    );
+  }
+
   return (
     <dl className={cn("grid gap-x-8 gap-y-3", gridColsClass[columns])}>
       {items.map((d, i) => (
-        <div key={i} className="flex justify-between gap-4 border-b border-border pb-2 text-sm">
-          <dt className="text-muted-foreground">{d.label}</dt>
-          <dd className="text-right font-medium">{d.value}</dd>
+        <div key={i} className="flex items-baseline justify-between gap-4 border-b border-border pb-2 text-sm">
+          <dt className="min-w-0 text-muted-foreground">{d.label}</dt>
+          <dd className="min-w-0 break-words text-right font-medium">{d.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/* Danh sách "tên + mô tả": tên nổi bật trên · mô tả phụ dưới, canh trái, gạch ngang đầu mục.
+   Dùng cho giá trị cốt lõi, phân khu quy hoạch… (giá trị là cụm/câu, KHÔNG hợp justify-between). */
+export function DescriptionList({
+  items,
+  columns = 3,
+}: {
+  items: { label: string; value: string }[];
+  columns?: number;
+}) {
+  if (!items.length) return null;
+  return (
+    <dl className={cn("grid gap-x-8 gap-y-6", gridColsClass[columns])}>
+      {items.map((d, i) => (
+        <div key={i} className="border-t border-border pt-4">
+          <dt className="font-medium leading-snug text-balance">{d.label}</dt>
+          <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{d.value}</dd>
         </div>
       ))}
     </dl>
@@ -42,13 +91,13 @@ export function IconFeatureGrid({
 }) {
   if (!items.length) return null;
   return (
-    <div className={cn("grid gap-4", gridColsClass[columns])}>
+    <div className={cn("grid items-stretch gap-4", gridColsClass[columns])}>
       {items.map((f, i) => (
-        <div key={i} className="flex gap-3 border border-border p-4">
+        <div key={i} className="flex h-full gap-3 border border-border p-4">
           <Icon name={f.icon} className="mt-0.5 size-5 shrink-0" />
-          <div className="space-y-1">
-            <p className="font-medium leading-tight">{f.title}</p>
-            {f.desc ? <p className="text-sm text-muted-foreground">{f.desc}</p> : null}
+          <div className="min-w-0 space-y-1">
+            <p className="font-medium leading-tight text-balance break-words">{f.title}</p>
+            {f.desc ? <p className="text-sm text-muted-foreground break-words">{f.desc}</p> : null}
           </div>
         </div>
       ))}
@@ -62,7 +111,8 @@ export function TagList({ items }: { items: { label: string; variant?: TagVarian
   return (
     <div className="flex flex-wrap gap-2">
       {items.map((t, i) => (
-        <Badge key={i} variant={t.variant ?? "secondary"}>
+        // h-auto + whitespace-normal: tag nhiều chữ (vd "Chế biến nông sản") xuống dòng thay vì bị cắt
+        <Badge key={i} variant={t.variant ?? "secondary"} className="h-auto max-w-full whitespace-normal py-1 text-left">
           {t.label}
         </Badge>
       ))}

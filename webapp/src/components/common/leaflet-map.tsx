@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useTt } from "@/lib/i18n/use-tx";
 import type { MapPinView } from "./map-placeholder";
 
 // DivIcon pin theo brand (cam viền trắng, đổ bóng). Tạo 1 lần/khởi tạo.
@@ -36,6 +37,7 @@ export default function LeafletMap({
   pins: MapPinView[];
   className?: string;
 }) {
+  const tt = useTt();
   const router = useRouter();
   const geoPins = pins.filter((p) => p.lat != null && p.lng != null);
 
@@ -72,7 +74,7 @@ export default function LeafletMap({
               <>
                 <br />
                 <a href={p.href} style={{ color: "#f6861f", fontWeight: 600 }}>
-                  Xem chi tiết →
+                  {tt("Xem chi tiết →", "View details →")}
                 </a>
               </>
             ) : null}

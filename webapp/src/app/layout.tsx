@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { SITE } from "@/lib/seo";
 import { SiteHeader } from "@/components/shell/site-header";
 import { SiteFooter } from "@/components/shell/site-footer";
 import { CtaBar } from "@/components/shell/cta-bar";
@@ -29,12 +30,43 @@ const fontMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Sumita — Nền tảng xúc tiến đầu tư cụm công nghiệp",
-    template: "%s · Sumita",
+    default: SITE.titleDefault,
+    template: `%s · ${SITE.name}`,
   },
-  description:
-    "Sumita — quỹ đất công nghiệp & nhà xưởng xây sẵn cho thuê tại chuỗi cụm công nghiệp. Nhận brochure, đặt lịch khảo sát, tư vấn đầu tư.",
+  description: SITE.description,
+  applicationName: SITE.name,
+  keywords: [...SITE.keywords],
+  authors: [{ name: SITE.legalName }],
+  creator: SITE.legalName,
+  publisher: SITE.legalName,
+  category: "business",
+  formatDetection: { telephone: true, address: true, email: true },
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    title: SITE.titleDefault,
+    description: SITE.description,
+    url: SITE.url,
+    locale: SITE.locale,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.titleDefault,
+    description: SITE.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#16223A",
+  colorScheme: "light",
 };
 
 export default function RootLayout({

@@ -1,34 +1,29 @@
 "use client";
 
 import { useFactories } from "@/lib/query/hooks";
-import { useTx } from "@/lib/i18n/use-tx";
+import { useTx, useTt } from "@/lib/i18n/use-tx";
+import { FACTORY_STATUS_LABEL } from "@/lib/i18n/labels";
 import { PageHeader } from "@/components/common/page-header";
 import { Section } from "@/components/common/section";
 import { CardGrid, EntityCard } from "@/components/common/entity-card";
 import { LoadingCards, ErrorState, EmptyState } from "@/components/common/states";
 import { ConversionCtas, LeadButton } from "@/components/lead/lead-cta";
-import type { Factory } from "@/lib/schema";
-
-const FACTORY_STATUS: Record<Factory["status"], string> = {
-  "con-trong": "Còn trống",
-  "da-thue": "Đã thuê",
-  "sap-ban-giao": "Sắp bàn giao",
-};
 
 export function FactoryListView() {
   const t = useTx();
+  const tt = useTt();
   const { data, isLoading, isError, refetch } = useFactories();
 
   return (
     <>
       <PageHeader
         breadcrumbs={[
-          { label: "Trang chủ", href: "/" },
-          { label: "Sản phẩm" },
-          { label: "Nhà xưởng xây sẵn" },
+          { label: tt("Trang chủ", "Home"), href: "/" },
+          { label: tt("Sản phẩm", "Products") },
+          { label: tt("Nhà xưởng xây sẵn", "Ready-built factories") },
         ]}
-        title="Nhà xưởng xây sẵn cho thuê"
-        description="Nhà xưởng tiêu chuẩn, bàn giao nhanh."
+        title={tt("Nhà xưởng xây sẵn cho thuê", "Ready-built factories for lease")}
+        description={tt("Nhà xưởng tiêu chuẩn, bàn giao nhanh.", "Standard factories with fast handover.")}
       />
 
       <Section>
@@ -37,26 +32,26 @@ export function FactoryListView() {
         ) : isError ? (
           <ErrorState onRetry={() => refetch()} />
         ) : !data?.length ? (
-          <EmptyState title="Chưa có dữ liệu" />
+          <EmptyState title={tt("Chưa có dữ liệu", "No data yet")} />
         ) : (
           <CardGrid columns={3}>
             {data.map((f) => (
               <EntityCard
                 key={f.slug}
                 image={f.image}
-                badge={FACTORY_STATUS[f.status]}
+                badge={t(FACTORY_STATUS_LABEL[f.status])}
                 title={t(f.name)}
                 meta={[
-                  { label: "Diện tích", value: `${f.area.toLocaleString("vi-VN")} m²` },
-                  { label: "Giá thuê", value: f.priceFrom ? t(f.priceFrom) : "Liên hệ" },
+                  { label: tt("Diện tích", "Area"), value: `${f.area.toLocaleString("vi-VN")} m²` },
+                  { label: tt("Giá thuê", "Lease price"), value: f.priceFrom ? t(f.priceFrom) : tt("Liên hệ", "Contact us") },
                 ]}
                 footer={
                   <LeadButton
                     size="sm"
                     variant="outline"
-                    lead={{ variant: "tu-van", title: "Tư vấn thuê nhà xưởng", source: "factory-list" }}
+                    lead={{ variant: "tu-van", title: tt("Tư vấn thuê nhà xưởng", "Factory leasing consultation"), source: "factory-list" }}
                   >
-                    Đăng ký thuê
+                    {tt("Đăng ký thuê", "Register to lease")}
                   </LeadButton>
                 }
               />
