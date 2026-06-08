@@ -13,6 +13,10 @@
 | 7 | Interactive Map: nền có sẵn / vector riêng | Chưa chọn | ☐ | | | Effort dev + graphic |
 | 8 | Copywriting & dịch thuật thuộc ai | Chưa rõ | ☐ | | | Rổ nội dung |
 | 9 | Địa danh hiển thị trên website (hậu sáp nhập TB→HY) | Dùng **cả hai** | ☑ | **Dùng song song**: "Thái Bình" cho nhận diện quen + "Hưng Yên" cho hành chính mới (SEO, bản đồ, pháp lý) | 2026-06-07 | Nội dung, SEO, domain. _Quyết định đội thầu — vẫn cần khách xác nhận (câu hỏi E)._ |
+| 10 | CRM/đích của lead (form đổ về đâu) | Chưa rõ — CRM ngoài hay lưu trong site? | ☐ | | | Module A1 Quản lý Lead, NFR N8.2 attribution, effort dev. _Nguồn: `08-spec/N0` Q-N1/Q-N2._ |
+| 11 | Font CJK (JP/KR/CN) — bản quyền hay webfont | Chưa rõ | ☐ | | | UX đa ngữ N1.2, chi phí font, effort design. _Nguồn: `08-spec/N0` Q-N3._ |
+| 12 | Mức tuân thủ dữ liệu cá nhân | Tối thiểu NĐ 13/2023 (VN) | ☐ | | | Module X1/X2, NFR N9. _Nguồn: `08-spec/N0` Q-N4._ |
+| 13 | Hero: video flycam hay ảnh tĩnh | Chưa rõ — ai cấp, dung lượng? | ☐ | | | Performance N4.2 (rủi ro lớn nhất), asset, effort. _Nguồn: `08-spec/N0` Q-N5._ |
 
 ## Cách dùng
 - Đổi ☐ thành ☑ khi chốt, điền cột "Quyết định cuối" + ngày.

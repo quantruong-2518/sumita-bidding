@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap đề xuất — WEBSITE SUMITA.VN
+  Chuẩn: sitemaps.org Protocol 0.9 + xhtml:link hreflang (đa ngôn ngữ).
+  Nguồn cấu trúc: 00-context/03-sitemap.md · 08-spec/00-overview.md · docs/brief.pdf
+  Trạng thái: ĐỀ XUẤT cho hồ sơ thầu — site CHƯA tồn tại, URL là slug dự kiến.
+  Ngôn ngữ: VI (mặc định, root) + EN (prefix /en/). JP/KR/CN tính kiến trúc, kích hoạt sau (DECISIONS #2).
+  ⚠️CONFIRM: các <url> đánh dấu bên dưới cần khách xác nhận trước khi chốt thiết kế.
+  lastmod = ngày tạo tài liệu (2026-06-07); priority/changefreq là gợi ý SEO, không phải cam kết.
+-->
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ============ TRANG CHỦ ============ -->
+  <url>
+    <loc>https://sumita.vn/</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://sumita.vn/"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ============ 1. GIỚI THIỆU ============ -->
+  <url>
+    <loc>https://sumita.vn/gioi-thieu</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/gioi-thieu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/about"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ============ 2. SẢN PHẨM (nhánh nặng nhất) ============ -->
+  <!-- 2.1 Đất công nghiệp cho thuê -->
+  <url>
+    <loc>https://sumita.vn/san-pham/dat-cong-nghiep</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/san-pham/dat-cong-nghiep"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/products/industrial-land"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 2.1.x — Trang chi tiết từng CCN (template 12 mục, tái sử dụng / module F4) -->
+  <url>
+    <loc>https://sumita.vn/san-pham/dat-cong-nghiep/ccn-hung-nhan</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/san-pham/dat-cong-nghiep/ccn-hung-nhan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/products/industrial-land/hung-nhan"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sumita.vn/san-pham/dat-cong-nghiep/ccn-duc-hiep</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/san-pham/dat-cong-nghiep/ccn-duc-hiep"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/products/industrial-land/duc-hiep"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sumita.vn/san-pham/dat-cong-nghiep/ccn-con-nhat</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/san-pham/dat-cong-nghiep/ccn-con-nhat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/products/industrial-land/con-nhat"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- ⚠️CONFIRM (DECISIONS #3): CCN Thụy Trường — footer brief có, brief body ghi 3 CCN. Bỏ comment nếu khách xác nhận 4 CCN. -->
+  <!--
+  <url>
+    <loc>https://sumita.vn/san-pham/dat-cong-nghiep/ccn-thuy-truong</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/san-pham/dat-cong-nghiep/ccn-thuy-truong"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/products/industrial-land/thuy-truong"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  -->
+
+  <!-- 2.2 Nhà xưởng xây sẵn cho thuê -->
+  <url>
+    <loc>https://sumita.vn/san-pham/nha-xuong-xay-san</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/san-pham/nha-xuong-xay-san"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/products/ready-built-factory"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ============ 3. TIỆN ÍCH & HẠ TẦNG ============ -->
+  <!-- ⚠️CONFIRM: phân bổ "xử lý nước thải" + "thoát nước mưa" giữa mục 3 và mục 4 (brief vs sitemap.jfif lệch) -->
+  <url>
+    <loc>https://sumita.vn/tien-ich-ha-tang</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tien-ich-ha-tang"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/utilities-infrastructure"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ============ 4. DỊCH VỤ & HỖ TRỢ ĐẦU TƯ ============ -->
+  <url>
+    <loc>https://sumita.vn/dich-vu-ho-tro-dau-tu</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/dich-vu-ho-tro-dau-tu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/investment-services"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ============ 5. TIN TỨC & TRUYỀN THÔNG ============ -->
+  <url>
+    <loc>https://sumita.vn/tin-tuc</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tin-tuc"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/news"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sumita.vn/tin-tuc/thi-truong</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tin-tuc/thi-truong"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/news/market"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sumita.vn/tin-tuc/tin-du-an</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tin-tuc/tin-du-an"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/news/projects"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://sumita.vn/tin-tuc/su-kien</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tin-tuc/su-kien"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/news/events"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <!-- ⚠️CONFIRM: sitemap.jfif có thêm mục "Báo chí nói gì về Sumita" (4 mục). Bỏ comment nếu khách chốt. -->
+  <!--
+  <url>
+    <loc>https://sumita.vn/tin-tuc/bao-chi-noi-gi</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tin-tuc/bao-chi-noi-gi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/news/press"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  -->
+
+  <!-- ============ 6. TUYỂN DỤNG ============ -->
+  <url>
+    <loc>https://sumita.vn/tuyen-dung</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tuyen-dung"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/careers"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ============ 7. LIÊN HỆ ============ -->
+  <url>
+    <loc>https://sumita.vn/lien-he</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/lien-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/contact"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ TÍNH NĂNG CROSS-PAGE (engine chuyển đổi) ============ -->
+  <!-- F2: Download Center (lead-gating: form trước khi tải brochure/tài liệu) -->
+  <url>
+    <loc>https://sumita.vn/tai-lieu</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/tai-lieu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/downloads"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- F3: Đặt lịch khảo sát / đăng ký tư vấn (CTA chuyển đổi chính) -->
+  <url>
+    <loc>https://sumita.vn/dat-lich-khao-sat</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://sumita.vn/dat-lich-khao-sat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sumita.vn/en/book-a-visit"/>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

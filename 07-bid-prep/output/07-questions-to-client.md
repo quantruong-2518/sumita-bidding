@@ -20,6 +20,13 @@
 - Hệ CRM/email để nối form lead là gì?
 - Yêu cầu tracking cụ thể (GA4, Meta Pixel, conversion nào)?
 
+## F. Nhóm dữ liệu, hiệu năng & tuân thủ (phát sinh từ rà soát module ẩn — `08-spec/N0`)
+- **(Q-N1) Đích của lead:** form đổ về **CRM ngoài** (HubSpot/Zalo OA/…) hay **lưu trong site**? → quyết định module Quản lý Lead + attribution. _(DECISIONS #10)_
+- **(Q-N2) Lead-dashboard:** dùng **trang quản trị sẵn có của CMS** hay cần **dashboard lead thiết kế riêng**? _(DECISIONS #10)_
+- **(Q-N3) Font CJK:** khi mở JP/KR/CN, quý vị **cấp font bản quyền** hay dùng **webfont miễn phí** (Noto)? → ảnh hưởng chi phí & hiển thị. _(DECISIONS #11)_
+- **(Q-N4) Tuân thủ dữ liệu:** chỉ cần **NĐ 13/2023 (VN)** hay cả **GDPR** (nếu có khách EU)? → quyết định banner consent + trang pháp lý. _(DECISIONS #12)_
+- **(Q-N5) Hero trang chủ:** dùng **video flycam** hay **ảnh tĩnh**? Nếu video: ai cấp, độ phân giải/dung lượng? → rủi ro hiệu năng lớn nhất. _(DECISIONS #13)_
+
 ## D. Nhóm bàn giao & vận hành
 - Số vòng revision kỳ vọng mỗi giai đoạn?
 - Thời gian duyệt mỗi giai đoạn (ngày làm việc)?

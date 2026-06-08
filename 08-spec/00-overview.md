@@ -63,7 +63,7 @@ Trạng thái: ⬜ chưa chi tiết · 🟡 đang viết · ✅ xong.
 | F1 | Interactive Map (pin CCN · hover · link chi tiết) | brief §10 | ⬜ |
 | F2 | Download Center (lead-gating: form trước tải) | brief §10 | ⬜ |
 | F3 | Hệ thống form (brochure/khảo sát/liên hệ/tư vấn) + tích hợp CRM/email | brief §10 | ⬜ |
-| F4 | **Template chi tiết CCN (12 mục, tái sử dụng)** | brief §5.2.1 | ⬜ |
+| F4 | **Template chi tiết CCN (12 mục, tái sử dụng)** → `08-spec/F4-template-ccn.md` | brief §5.2.1 | 🟡 |
 
 ### D. Phi chức năng (NFR)
 | Mã | Hạng mục | Ref nguồn | TT |
@@ -73,6 +73,12 @@ Trạng thái: ⬜ chưa chi tiết · 🟡 đang viết · ✅ xong.
 | N3 | CMS dễ quản trị · upload tài liệu | brief §11 | ⬜ |
 | N4 | Tối ưu tốc độ tải | brief §11 | ⬜ |
 | N5 | Tracking: GA4 · Meta Pixel · Conversion | brief §11 | ⬜ |
+
+### E. Module ẩn & NFR mở rộng (ngoài brief) → `08-spec/N0-hidden-modules-and-nfr.md`
+| Mã | Nhóm | Nội dung | TT |
+|---|---|---|---|
+| S1·X1–X5·A1 | Module ẩn | Search · Consent · Pháp lý · Error states · Hậu-form · Chống spam · Quản lý Lead | ✅ identify |
+| N6–N10 | NFR mở rộng | SEO-infra · Security · Monitoring(data) · Compliance(PDPD) · Reliability/Ops | ✅ identify |
 
 ## 4. Đề xuất thứ tự chi tiết (giá trị giảm dần)
 **F4** (template CCN — lõi tái sử dụng) → **P2** (sản phẩm) → **P0** (trang chủ) → **F3 + F2** (form + download = engine chuyển đổi) → **F1** (map) → **G1–G6** (global) → **P1,P3–P7** → **N1–N5**.

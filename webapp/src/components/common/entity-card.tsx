@@ -1,0 +1,109 @@
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { Media } from "./media";
+import { Icon } from "./icon";
+import { gridColsClass } from "./grid";
+
+export function CardGrid({
+  columns = 3,
+  className,
+  children,
+}: {
+  columns?: number;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return <div className={cn("grid gap-4 sm:gap-6", gridColsClass[columns], className)}>{children}</div>;
+}
+
+export type EntityCardProps = {
+  href?: string;
+  image?: string;
+  imageRatio?: number;
+  badge?: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  meta?: { label: string; value: string }[];
+  tags?: string[];
+  ctaLabel?: string;
+  footer?: React.ReactNode;
+};
+
+/* THẺ TÁI DÙNG cho CCN / nhà xưởng / tin tức / việc làm. Một component, nhiều biến thể qua props. */
+export function EntityCard({
+  href,
+  image,
+  imageRatio = 16 / 9,
+  badge,
+  title,
+  subtitle,
+  description,
+  meta,
+  tags,
+  ctaLabel,
+  footer,
+}: EntityCardProps) {
+  return (
+    <Card className="flex flex-col gap-0 overflow-hidden p-0">
+      <div className="relative">
+        <Media label={image ?? title} ratio={imageRatio} className="border-0 border-b border-border" />
+        {badge ? (
+          <Badge variant="default" className="absolute left-3 top-3">
+            {badge}
+          </Badge>
+        ) : null}
+      </div>
+
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <div className="space-y-1">
+          <h3 className="text-lg font-semibold leading-snug">
+            {href ? (
+              <Link href={href} className="outline-none after:absolute after:inset-0 hover:underline">
+                {title}
+              </Link>
+            ) : (
+              title
+            )}
+          </h3>
+          {subtitle ? <p className="text-sm text-muted-foreground">{subtitle}</p> : null}
+        </div>
+
+        {description ? <p className="line-clamp-3 text-sm text-foreground/80">{description}</p> : null}
+
+        {meta?.length ? (
+          <dl className="mt-1 space-y-1.5 text-sm">
+            {meta.map((m, i) => (
+              <div key={i} className="flex justify-between gap-3 border-b border-border pb-1.5">
+                <dt className="text-muted-foreground">{m.label}</dt>
+                <dd className="text-right font-medium">{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+
+        {tags?.length ? (
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((t) => (
+              <Badge key={t} variant="secondary">
+                {t}
+              </Badge>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="mt-auto pt-2">
+          {footer ??
+            (href && ctaLabel ? (
+              <span className="inline-flex items-center gap-1 text-sm font-medium">
+                {ctaLabel}
+                <Icon name="ArrowRight" className="size-4" />
+              </span>
+            ) : null)}
+        </div>
+      </div>
+    </Card>
+  );
+}
