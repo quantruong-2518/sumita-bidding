@@ -11,7 +11,19 @@ import { LeadButton } from "@/components/lead/lead-cta";
 export function CtaBar() {
   const t = useTx();
 
-  const Channel = ({ id, icon, href, label }: { id: string; icon: string; href: string; label: string }) => {
+  const Channel = ({
+    id,
+    icon,
+    href,
+    label,
+    className,
+  }: {
+    id: string;
+    icon: string;
+    href: string;
+    label: string;
+    className?: string;
+  }) => {
     const external = href.startsWith("http");
     return (
       <Link
@@ -21,7 +33,7 @@ export function CtaBar() {
         rel={external ? "noreferrer" : undefined}
         title={label}
         aria-label={label}
-        className="flex size-10 items-center justify-center rounded-lg border border-border bg-card text-foreground/80 shadow-sm transition-colors hover:border-primary/30 hover:bg-accent hover:text-primary lg:rounded-full"
+        className={`flex size-11 items-center justify-center rounded-lg border border-border bg-card text-foreground/80 shadow-sm transition-colors hover:border-primary/30 hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 lg:rounded-full ${className ?? ""}`}
       >
         <Icon name={icon} className="size-5" />
       </Link>
@@ -30,10 +42,19 @@ export function CtaBar() {
 
   return (
     <>
-      {/* Mobile: thanh cố định dưới cùng */}
+      {/* Mobile: thanh cố định dưới cùng. Touch target 44px (size-11).
+          Màn rất nhỏ chỉ hiện Zalo + hotline để nút "Đặt lịch khảo sát" đủ to; ≥sm hiện đủ kênh. */}
       <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2 border-t border-border bg-background/95 p-2 backdrop-blur supports-[backdrop-filter]:bg-background/80 lg:hidden">
-        {CTA_CHANNELS.map((c) => (
-          <Channel key={c.id} id={c.id} icon={c.icon} href={c.href} label={t(c.label)} />
+        {CTA_CHANNELS.map((c, i) => (
+          <Channel
+            key={c.id}
+            id={c.id}
+            icon={c.icon}
+            href={c.href}
+            label={t(c.label)}
+            // ẩn kênh thứ 3,4 trên màn rất nhỏ (<640px) để nút CTA đủ rộng
+            className={i >= 2 ? "hidden sm:flex" : ""}
+          />
         ))}
         <LeadButton variant="cta" className="ml-auto flex-1" lead={{ variant: "khao-sat", title: "Đặt lịch khảo sát", source: "cta-bar" }}>
           Đặt lịch khảo sát

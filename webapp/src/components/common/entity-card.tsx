@@ -49,7 +49,15 @@ export function EntityCard({
   return (
     <Card className="group/entity relative flex flex-col gap-0 overflow-hidden p-0 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/[0.06] hover:ring-primary/20">
       <div className="relative">
-        <Media label={image ?? title} ratio={imageRatio} className="border-0 border-b border-border" />
+        {/* image = key ảnh (fixtures) → Media tra ra ảnh thật; thiếu → placeholder. alt/label = tiêu đề thẻ. */}
+        <Media
+          src={image}
+          label={title}
+          alt={title}
+          ratio={imageRatio}
+          className="border-0 border-b border-border"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
         {badge ? (
           <Badge variant="default" className="absolute left-3 top-3">
             {badge}

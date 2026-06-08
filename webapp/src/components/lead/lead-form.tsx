@@ -122,21 +122,29 @@ export function LeadForm({ variant, defaultCcnInterest, source, onSuccess, succe
   }
 
   return (
-    <form onSubmit={onSubmit} className={cn("space-y-4", className)} noValidate>
+    // Input/Select cao 44px (dễ chạm trên mobile) — chỉ trong phạm vi form lead.
+    <form
+      onSubmit={onSubmit}
+      className={cn(
+        "space-y-4 [&_input]:h-11 [&_button[role=combobox]]:h-11 [&_textarea]:min-h-24",
+        className,
+      )}
+      noValidate
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Họ và tên" htmlFor="lead-name" required error={errors.name?.message}>
-          <Input id="lead-name" placeholder="Nguyễn Văn A" {...form.register("name")} />
+          <Input id="lead-name" autoComplete="name" placeholder="Nguyễn Văn A" {...form.register("name")} />
         </Field>
         {showCompany ? (
           <Field label="Công ty" htmlFor="lead-company" error={errors.company?.message}>
-            <Input id="lead-company" placeholder="Tên doanh nghiệp" {...form.register("company")} />
+            <Input id="lead-company" autoComplete="organization" placeholder="Tên doanh nghiệp" {...form.register("company")} />
           </Field>
         ) : null}
         <Field label="Email" htmlFor="lead-email" required error={errors.email?.message}>
-          <Input id="lead-email" type="email" placeholder="ban@congty.com" {...form.register("email")} />
+          <Input id="lead-email" type="email" inputMode="email" autoComplete="email" placeholder="ban@congty.com" {...form.register("email")} />
         </Field>
         <Field label="Số điện thoại" htmlFor="lead-phone" required error={errors.phone?.message}>
-          <Input id="lead-phone" type="tel" placeholder="09xx xxx xxx" {...form.register("phone")} />
+          <Input id="lead-phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="09xx xxx xxx" {...form.register("phone")} />
         </Field>
       </div>
 
@@ -197,7 +205,8 @@ export function LeadForm({ variant, defaultCcnInterest, source, onSuccess, succe
         )}
       />
 
-      <Button type="submit" variant="cta" size="lg" className="w-full" disabled={isPending}>
+      {/* Nút submit cao 44px (touch target chuẩn) — CTA chuyển đổi chính, không đổi button dùng chung. */}
+      <Button type="submit" variant="cta" size="lg" className="h-11 w-full text-sm font-semibold" disabled={isPending}>
         {isPending ? <Icon name="Loader2" className="size-4 animate-spin" /> : null}
         {SUBMIT_LABEL[variant]}
       </Button>

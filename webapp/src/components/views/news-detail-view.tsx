@@ -60,7 +60,7 @@ export function NewsDetailView({ slug }: { slug: string }) {
 
       <Section>
         <div className="mx-auto max-w-3xl space-y-6">
-          <Media label={article.cover ?? "Ảnh bài viết"} />
+          <Media src={article.cover} label="Ảnh bài viết" alt={t(article.title)} sizes="(max-width: 768px) 100vw, 768px" priority />
           <RichText content={t(article.body)} />
         </div>
       </Section>

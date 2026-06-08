@@ -75,6 +75,8 @@ export function ContactView() {
                   label: t(p.name),
                   x: p.x,
                   y: p.y,
+                  lat: p.lat,
+                  lng: p.lng,
                   href: `/san-pham/dat-cong-nghiep/${p.ccnSlug}`,
                 }))}
               />

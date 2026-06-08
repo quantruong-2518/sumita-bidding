@@ -35,10 +35,11 @@ export function StickySubNav({ items }: { items: { id: string; label: string }[]
           <a
             key={it.id}
             href={`#${it.id}`}
+            aria-current={active === it.id ? "true" : undefined}
             className={cn(
-              "whitespace-nowrap border-b-2 px-3 py-2 text-sm transition-colors",
+              "flex min-h-11 items-center whitespace-nowrap border-b-2 px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
               active === it.id
-                ? "border-foreground font-medium text-foreground"
+                ? "border-cta font-medium text-foreground"
                 : "border-transparent text-muted-foreground hover:text-foreground",
             )}
           >

@@ -23,7 +23,7 @@ function Partners() {
   return (
     <CardGrid columns={4}>
       {data.map((p) => (
-        <Media key={p.id} label={p.name} ratio={3 / 2} />
+        <Media key={p.id} src={p.logo} label={p.name} alt={p.name} ratio={3 / 2} sizes="(max-width: 640px) 50vw, 25vw" />
       ))}
     </CardGrid>
   );

@@ -28,7 +28,13 @@ export function Gallery({ items, columns = 3 }: { items: { src: string; label?: 
             className="group block text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
             aria-label={`Xem ảnh ${i + 1}`}
           >
-            <Media label={it.label ?? it.src} className="transition-opacity group-hover:opacity-80" />
+            <Media
+              src={it.src}
+              label={it.label ?? it.src}
+              alt={it.label ?? `Ảnh ${i + 1}`}
+              className="transition-opacity group-hover:opacity-80"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
           </button>
         ))}
       </div>
@@ -40,7 +46,15 @@ export function Gallery({ items, columns = 3 }: { items: { src: string; label?: 
               Ảnh {open ? index! + 1 : 0}/{items.length}
             </DialogTitle>
           </DialogHeader>
-          {current ? <Media label={current.label ?? current.src} ratio={16 / 9} /> : null}
+          {current ? (
+            <Media
+              src={current.src}
+              label={current.label ?? current.src}
+              alt={current.label ?? `Ảnh ${open ? index! + 1 : 0}`}
+              ratio={16 / 9}
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          ) : null}
           <div className="flex items-center justify-between">
             <Button variant="outline" size="sm" onClick={() => go(-1)}>
               <Icon name="ChevronLeft" className="size-4" /> Trước

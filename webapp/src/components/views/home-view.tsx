@@ -72,6 +72,8 @@ function SystemMap() {
         label: t(p.name),
         x: p.x,
         y: p.y,
+        lat: p.lat,
+        lng: p.lng,
         href: `/san-pham/dat-cong-nghiep/${p.ccnSlug}`,
       }))}
     />
@@ -128,6 +130,7 @@ export function HomeView() {
         eyebrow={t(HOME.hero.eyebrow)}
         title={t(HOME.hero.title)}
         tagline={t(HOME.hero.tagline)}
+        imageAlt="Toàn cảnh hạ tầng cụm công nghiệp Sumita"
         actions={<ConversionCtas source="home-hero" />}
       />
 

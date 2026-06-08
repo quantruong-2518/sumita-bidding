@@ -141,6 +141,7 @@ export const CCNS: Ccn[] = [
     slug: "ccn-con-nhat",
     name: L("CCN Cồn Nhất", "Con Nhat Cluster"),
     tagline: L("Cụm công nghiệp ven sông, quỹ đất sạch, đang quy hoạch.", "A riverside cluster, clean land bank, in planning."),
+    heroImage: "ccn/con-nhat/hero",
     status: "sap-mo-ban",
     overview: L(
       "CCN Cồn Nhất đang trong giai đoạn quy hoạch và chuẩn bị đầu tư. Thông tin chi tiết sẽ được cập nhật theo tiến độ.",

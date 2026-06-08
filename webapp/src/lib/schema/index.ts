@@ -154,7 +154,15 @@ export const Partner = z.object({ id: z.string(), name: z.string(), logo: z.stri
 export type Partner = z.infer<typeof Partner>;
 
 // ── Pin bản đồ (O-01) ──
-export const MapPin = z.object({ ccnSlug: z.string(), name: Localized, x: z.number(), y: z.number() });
+// x/y (% trên ảnh nền) giữ lại cho fallback placeholder; lat/lng cho map thật (Leaflet/OSM).
+export const MapPin = z.object({
+  ccnSlug: z.string(),
+  name: Localized,
+  x: z.number(),
+  y: z.number(),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
+});
 export type MapPin = z.infer<typeof MapPin>;
 
 // ── Lead (engine chuyển đổi: brochure/khảo sát/tư vấn/liên hệ/ứng tuyển) ──

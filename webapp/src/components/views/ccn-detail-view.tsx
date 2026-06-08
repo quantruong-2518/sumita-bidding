@@ -17,6 +17,7 @@ import {
 } from "@/components/common/data-blocks";
 import { Gallery } from "@/components/common/gallery";
 import { Media } from "@/components/common/media";
+import { Icon } from "@/components/common/icon";
 import { LoadingCards, LoadingLines, EmptyState, ErrorState } from "@/components/common/states";
 import { ConversionCtas } from "@/components/lead/lead-cta";
 import { DownloadList } from "@/components/lead/download-list";
@@ -108,7 +109,7 @@ export function CcnDetailView({ slug }: { slug: string }) {
         <div className="space-y-6">
           <p className="text-foreground/90">{t(ccn.location.address)}</p>
           <DefinitionList items={ccn.location.distances.map((d) => ({ label: t(d.label), value: d.value }))} />
-          <Media label={ccn.location.image ?? "Bản đồ vị trí"} />
+          <Media src={ccn.location.image} label="Bản đồ vị trí" alt={`Vị trí ${t(ccn.name)}`} sizes="(max-width: 1024px) 100vw, 66vw" />
         </div>
       ),
     },
@@ -121,7 +122,7 @@ export function CcnDetailView({ slug }: { slug: string }) {
       hasData: Boolean(ccn.masterPlanImage) || ccn.zones.length > 0,
       render: () => (
         <div className="space-y-6">
-          <Media label={ccn.masterPlanImage ?? "Mặt bằng quy hoạch"} />
+          <Media src={ccn.masterPlanImage} label="Mặt bằng quy hoạch" alt={`Quy hoạch ${t(ccn.name)}`} sizes="(max-width: 1024px) 100vw, 66vw" />
           <DefinitionList items={ccn.zones.map((z) => ({ label: t(z.name), value: z.note ? t(z.note) : "—" }))} />
         </div>
       ),
@@ -213,7 +214,20 @@ export function CcnDetailView({ slug }: { slug: string }) {
       hasData: ccn.gallery.length > 0,
       render: () => (
         <div className="space-y-6">
-          {ccn.flycamVideo ? <Media label="Video flycam" /> : null}
+          {/* Demo: ảnh aerial + nút Play giả lập video flycam. Production = thay <video> clip khách cấp (DECISIONS #4). */}
+          {ccn.flycamVideo ? (
+            <div className="group/flycam relative overflow-hidden rounded-lg">
+              <Media src={ccn.flycamVideo} label="Video flycam" alt={`Flycam ${t(ccn.name)}`} ratio={16 / 9} sizes="(max-width: 1024px) 100vw, 66vw" />
+              <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <span className="flex size-16 items-center justify-center rounded-full bg-cta text-cta-foreground shadow-lg transition-transform group-hover/flycam:scale-105">
+                  <Icon name="Play" className="size-7" />
+                </span>
+              </span>
+              <span className="pointer-events-none absolute bottom-3 left-3 rounded bg-primary/70 px-2 py-1 text-xs font-medium text-white">
+                Video flycam (demo — clip sẽ do khách cung cấp)
+              </span>
+            </div>
+          ) : null}
           <Gallery items={ccn.gallery.map((g) => ({ src: g }))} />
         </div>
       ),
@@ -266,6 +280,7 @@ export function CcnDetailView({ slug }: { slug: string }) {
         title={t(ccn.name)}
         tagline={t(ccn.tagline)}
         image={ccn.heroImage}
+        imageAlt={`Toàn cảnh ${t(ccn.name)}`}
         size="md"
         actions={<ConversionCtas ccnInterest={t(ccn.name)} source="ccn-hero" />}
       />
