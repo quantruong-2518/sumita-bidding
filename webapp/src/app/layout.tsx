@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/shell/site-header";
 import { SiteFooter } from "@/components/shell/site-footer";
 import { CtaBar } from "@/components/shell/cta-bar";
 import { LeadFormDialog } from "@/components/lead/lead-form-dialog";
+import { JsonLd } from "@/components/seo/json-ld";
 
 /* Typography Sumita:
    - Body  : Inter — dễ đọc, hỗ trợ tiếng Việt tốt, trung tính/quốc tế.
@@ -75,6 +76,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${fontSans.variable} ${fontHeading.variable} ${fontMono.variable} antialiased`}>
       <body className="min-h-dvh bg-background text-foreground pb-16 lg:pb-0">
+        <JsonLd />
         <Providers>
           <div className="flex min-h-dvh flex-col">
             <SiteHeader />

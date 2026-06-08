@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getCcn, getCcnSlugs } from "@/lib/api";
 import { tx } from "@/lib/i18n";
 import { pageMeta } from "@/lib/seo";
+import { resolveImage } from "@/lib/images";
 import { CcnDetailView } from "@/components/views/ccn-detail-view";
 
 export function generateStaticParams() {
@@ -13,7 +14,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = await getCcn(slug);
   return item
-    ? pageMeta({ title: tx(item.name), description: tx(item.tagline), path: `/products/industrial-land/${slug}` })
+    ? pageMeta({
+        title: tx(item.name),
+        description: tx(item.tagline),
+        path: `/products/industrial-land/${slug}`,
+        image: resolveImage(item.heroImage),
+      })
     : {};
 }
 
